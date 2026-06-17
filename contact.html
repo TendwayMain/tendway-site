@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Ride | Tendway Medical Transport</title>
+<meta name="description" content="Request non-emergency medical transport with Tendway. Book a ride online across the GTA or call (647) 571-3108.">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<header class="site">
+  <nav class="nav">
+    <a href="/" class="brand"><span class="dot"></span>Tendway</a>
+    <div class="navlinks">
+      <a href="/">Home</a>
+      <a href="/services.html">Services</a>
+      <a href="/service-area.html">Service Area</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html" class="nav-cta">Book a Ride</a>
+    </div>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>Book a Ride</h1>
+    <p>Request a trip below, or call us directly at <a href="tel:+16475713108" style="color:#fff; font-weight:700;">(647) 571-3108</a>.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <div class="form-wrap">
+      <div id="formMsg" class="form-msg"></div>
+      <form id="bookingForm">
+        <div class="form-row">
+          <div class="field">
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="field">
+            <label for="phone">Phone *</label>
+            <input type="tel" id="phone" name="phone" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email">
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="pickup">Pickup Address *</label>
+            <input type="text" id="pickup" name="pickup" required>
+          </div>
+          <div class="field">
+            <label for="destination">Destination *</label>
+            <input type="text" id="destination" name="destination" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="date">Date *</label>
+            <input type="date" id="date" name="date" required>
+          </div>
+          <div class="field">
+            <label for="time">Pickup Time *</label>
+            <input type="time" id="time" name="time" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="triptype">Trip Type</label>
+            <select id="triptype" name="triptype">
+              <option>One-way</option>
+              <option>Round-trip</option>
+              <option>Recurring / standing appointment</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="passengers">Passengers (incl. companion)</label>
+            <select id="passengers" name="passengers">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="notes">Notes / Special Requests</label>
+          <textarea id="notes" name="notes" placeholder="Appointment type, mobility notes, return time, anything we should know..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" id="submitBtn" style="width:100%;">Request Transport</button>
+        <p class="form-note" style="text-align:center; margin-top:14px;">This is a request, not a confirmed booking. We'll contact you to confirm details. <strong>Not for emergencies — call 911.</strong></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand"><span class="dot" style="background:var(--teal)"></span>Tendway</div>
+        <p>Non-emergency medical transportation serving the Greater Toronto Area with safe, reliable, and compassionate care.</p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="/services.html">Services</a>
+        <a href="/service-area.html">Service Area</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Book a Ride</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="tel:+16475713108">(647) 571-3108</a>
+        <a href="/service-area.html">Greater Toronto Area</a>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2026 Tendway. Non-emergency medical transportation. &nbsp;|&nbsp; This service is not for medical emergencies — call 911.</div>
+  </div>
+</footer>
+
+<script>
+const form = document.getElementById('bookingForm');
+const msg = document.getElementById('formMsg');
+const btn = document.getElementById('submitBtn');
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  btn.disabled = true; btn.textContent = 'Sending...';
+  msg.className = 'form-msg';
+  const data = Object.fromEntries(new FormData(form).entries());
+  try {
+    const res = await fetch('/api/book', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (res.ok) {
+      msg.className = 'form-msg ok';
+      msg.textContent = '✓ Request received! We\'ll contact you shortly to confirm your trip.';
+      form.reset();
+    } else {
+      throw new Error('Server error');
+    }
+  } catch (err) {
+    msg.className = 'form-msg err';
+    msg.innerHTML = 'Something went wrong sending your request. Please call us at <a href="tel:+16475713108">(647) 571-3108</a>.';
+  }
+  btn.disabled = false; btn.textContent = 'Request Transport';
+  msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
+</script>
+
+</body>
+</html>

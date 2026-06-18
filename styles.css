@@ -45,6 +45,11 @@ header.site { background: var(--white); border-bottom: 1px solid var(--line); po
 .nav-cta { background: var(--sky); color: #fff !important; padding: 11px 22px; border-radius: 999px; font-weight: 700; box-shadow: var(--shadow-sm); }
 .nav-cta:hover { background: var(--sky-deep); text-decoration: none; }
 
+/* Mobile menu toggle (hidden on desktop) */
+.nav-toggle { display: none; background: none; border: none; padding: 8px; cursor: pointer; color: var(--ink); border-radius: 10px; }
+.nav-toggle svg { width: 26px; height: 26px; display: block; }
+.nav-toggle:hover { background: var(--sky-soft); }
+
 /* Hero */
 .hero { background: linear-gradient(180deg, var(--sky-soft) 0%, var(--white) 100%); padding: 60px 0 70px; }
 .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center; }
@@ -169,10 +174,31 @@ footer.site a:hover { color: #fff; }
   .hero h1 { font-size: 2.3rem; }
   .feature.rev .feature-text { order: 0; }
   .hero-img, .feature-img { height: 320px; }
+
+  /* Collapse nav into a dropdown */
+  .nav { flex-wrap: nowrap; justify-content: space-between; align-items: center; gap: 0; }
+  .nav-toggle { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; }
+  .brand { flex: 0 1 auto; }
+  .navlinks {
+    position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--white); border-bottom: 1px solid var(--line);
+    box-shadow: var(--shadow); padding: 8px 0;
+    max-height: 0; overflow: hidden; opacity: 0; visibility: hidden;
+    transition: max-height .25s ease, opacity .2s ease;
+  }
+  header.site { position: sticky; }
+  .nav { position: relative; }
+  .navlinks.open { max-height: 420px; opacity: 1; visibility: visible; }
+  .navlinks a { padding: 14px 24px; font-size: 1.05rem; border-bottom: 1px solid var(--sky-mist); }
+  .navlinks a:last-child { border-bottom: none; }
+  .nav-cta {
+    margin: 10px 24px 6px; text-align: center;
+    border-bottom: none !important; box-shadow: var(--shadow-sm);
+  }
 }
 @media (max-width: 640px) {
   .form-row { grid-template-columns: 1fr; }
   .foot-grid { grid-template-columns: 1fr; }
-  .navlinks { width: 100%; justify-content: flex-start; gap: 16px; }
   .hero h1 { font-size: 2rem; }
 }

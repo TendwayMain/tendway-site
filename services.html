@@ -12,7 +12,8 @@
 <header class="site">
   <nav class="nav">
     <a href="/" class="brand"><span class="dot">♥</span>Tendway</a>
-    <div class="navlinks">
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false" onclick="this.classList.toggle('on');var n=document.getElementById('navlinks');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'));"><svg class="i-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    <div class="navlinks" id="navlinks">
       <a href="/">Home</a>
       <a href="/services.html">Services</a>
       <a href="/service-area.html">Service Area</a>

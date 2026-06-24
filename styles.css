@@ -89,12 +89,13 @@ header.site { background: var(--white); border-bottom: 1px solid var(--line); po
 
 /* Trust band */
 .trustband { background: var(--white); border-bottom: 1px solid var(--line); }
-.trustband-inner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; padding: 26px 0; }
-.trustband .tb { display: flex; align-items: center; gap: 13px; }
+.trustband-inner { display: grid; grid-template-columns: repeat(5, 1fr); gap: 22px; padding: 26px 0; }
+.trustband .tb { display: flex; align-items: center; gap: 13px; justify-content: flex-start; }
 .trustband .tb-ic { width: 44px; height: 44px; border-radius: 12px; background: var(--sky-soft); color: var(--sky-deep); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .trustband .tb-ic svg { width: 22px; height: 22px; }
 .trustband .tb-t { font-weight: 800; color: var(--ink); font-size: 0.98rem; line-height: 1.25; }
 .trustband .tb-s { font-size: 0.84rem; color: var(--muted); }
+@media (max-width: 1000px) { .trustband-inner { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 860px) { .trustband-inner { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 480px) { .trustband-inner { grid-template-columns: 1fr; } }
 
